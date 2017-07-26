@@ -28,7 +28,7 @@ module "influxdb" {
 }
 ```
 
-### Two Enterprise Clusters
+### Influx Enterprise Multi-Cluster Configuration
 
 A "name" variable can be specified when running multiple clusters in the same site.
 
