@@ -56,6 +56,11 @@ variable "security_groups" {
     default     = []
 }
 
+variable "user_data" {
+    description = "User data for all instances"
+    default     = "${file("${path.module}/files/init.sh")}"
+}
+
 variable "data_disk_device_name" {
     description = "The name of the device to attack to the data-nodes."
     default  = "/dev/xvdh"
