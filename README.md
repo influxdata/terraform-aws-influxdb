@@ -10,7 +10,7 @@ Currently only the AWS provider is supported; However all enhancements are welom
 
 ```
 module "influxdb" {
-    source             = "./module/influxdb"
+    source             = "github.com/influxdata/terraform-influxdb"
 
     data_instances    = 4
     # Set meta-instances to zero for OSS usage :)
@@ -32,7 +32,7 @@ A "name" variable can be specified when running multiple clusters in the same si
 
 ```
 module "influxdb" {
-    source             = "./module/influxdb"
+    source             = "github.com/influxdata/terraform-influxdb"
 
     name              = "influx01"
     data_instances    = 4
