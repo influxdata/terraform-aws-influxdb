@@ -6,6 +6,8 @@ Currently only the AWS provider is supported; However all enhancements are welom
 
 ## Usage
 
+This module intentionally leaves operating system level provisioning and configuration management up to the user.
+
 ### Single Enterprise Cluster
 
 ```
