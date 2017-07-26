@@ -50,7 +50,7 @@ module "influxdb" {
 }
 
 module "influxdb" {
-    source             = "./module/influxdb"
+    source             = "github.com/influxdata/terraform-influxdb"
 
     name              = "influx02"
     data_instances    = 4
