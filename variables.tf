@@ -58,7 +58,7 @@ variable "security_groups" {
 
 variable "user_data" {
     description = "User data for all instances"
-    default     = "${file("${path.module}/files/init.sh")}"
+    default     = ""
 }
 
 variable "data_disk_device_name" {

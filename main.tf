@@ -4,7 +4,7 @@ resource "aws_instance" "data_node" {
     tags                        = "${merge(var.tags, map("Name", "${var.name}-data${format("%02d", count.index + 1)}"), map("Role", "${replace(var.name, "-", "_")}_data"), map("Type", "data"))}"
     subnet_id                   = "${element(var.subnet_ids, count.index)}"
     key_name                    = "${var.key_name}"
-    user_data                   = "${var.user_data}"
+    user_data                   = "${var.user_data == "" ? file("${path.module}/files/init.sh") : var.user_data }"
     ebs_optimized               = true
     vpc_security_group_ids      = ["${concat(list(aws_security_group.influx_cluster.id, aws_security_group.data_node.id), var.security_groups)}"]
     count                       = "${var.data_instances}"
@@ -34,7 +34,7 @@ resource "aws_instance" "meta_node" {
     tags                        = "${merge(var.tags, map("Name", "${var.name}-meta${format("%02d", count.index + 1)}"), map("Role", "${replace(var.name, "-", "_")}_meta"), map("Type", "data"))}"
     subnet_id                   = "${element(var.subnet_ids,0)}"
     key_name                    = "${var.key_name}"
-    user_data                   = "${var.user_data}"
+    user_data                   = "${var.user_data == "" ? file("${path.module}/files/init.sh") : var.user_data }"
     vpc_security_group_ids      = ["${concat(list(aws_security_group.influx_cluster.id), var.security_groups)}"]
     count                       = "${var.meta_instances}"
 }
