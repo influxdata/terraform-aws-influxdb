@@ -1,6 +1,8 @@
 # Terraform InfluxDB Module
 
-Builds out all infrastructure for running InfluxDB and InfluxDB Enterprise clusters using Terraform.
+Builds out all infrastructure for running InfluxDB OSS instances and InfluxDB Enterprise clusters using Terraform. OSS support particuarly useful for those want to start with OSS and scale out to enterprise installations.
+
+Currently only the AWS provider is supported; However all enhancements are welome!
 
 ## Usage
 
