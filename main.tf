@@ -1,8 +1,10 @@
+# Used to obtain availabilty zones when creating persistent storage.
 data "aws_subnet" "selected" {
   count = "${length(var.subnet_ids)}"
   id = "${var.subnet_ids[count.index]}"
 }
 
+# Create data nodes, equally distrubting them across specified subnets / AVs
 resource "aws_instance" "data_node" {
     ami                         = "${var.ami}"
     instance_type               = "${var.instance_type}"
@@ -33,6 +35,9 @@ resource "aws_volume_attachment" "data_attachment" {
     force_detach = true
 }
 
+
+# Creates all meta nodes in the first / same subnet, this avoids splits if one AV goes offline.
+# Data nodes function fine without access to meta-nodes between shard creation.
 resource "aws_instance" "meta_node" {
     ami                         = "${var.ami}"
     instance_type               = "t2.medium"
@@ -81,6 +86,7 @@ resource "aws_route53_record" "data_node" {
 }
 
 
+# Setup inter-node cluster communications.
 resource "aws_security_group" "influx_cluster" {
     name        = "${var.name}_cluster"
     description = "Rules required for an Influx Enterprise Cluster"
