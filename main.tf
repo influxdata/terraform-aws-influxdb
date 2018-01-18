@@ -1,3 +1,8 @@
+data "aws_subnet" "selected" {
+  count = "${length(var.subnet_ids)}"
+  id = "${var.subnet_ids[count.index]}"
+}
+
 resource "aws_instance" "data_node" {
     ami                         = "${var.ami}"
     instance_type               = "${var.instance_type}"
@@ -15,15 +20,15 @@ resource "aws_ebs_volume" "data" {
     encrypted         = true
     type              = "io1"
     iops              = "${var.data_disk_iops}"
-    availability_zone = "${element(aws_instance.data_node.*.availability_zone, count.index)}"
+    availability_zone = "${element(data.aws_subnet.selected.*.availability_zone, count.index)}"
     tags              = "${var.tags}"
     count             = "${var.data_instances}"
 }
 
 resource "aws_volume_attachment" "data_attachment" {
     device_name = "${var.data_disk_device_name}"
-    volume_id   = "${element(aws_ebs_volume.data.*.id, count.index)}"
-    instance_id = "${element(aws_instance.data_node.*.id, count.index)}"
+    volume_id   = "${aws_ebs_volume.data.*.id[count.index]}"
+    instance_id = "${aws_instance.data_node.*.id[count.index]}"
     count       = "${var.data_instances}"
     force_detach = true
 }
