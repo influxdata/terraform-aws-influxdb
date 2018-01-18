@@ -14,7 +14,7 @@ Official Ansible modules can be found here: https://galaxy.ansible.com/influxdat
 ### Single Enterprise Cluster
 
 ```
-Module "influxdb" {
+module "influxdb" {
     source  = "influxdata/influxdb/aws"
     version = "1.0.0"
 
