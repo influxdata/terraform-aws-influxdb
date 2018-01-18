@@ -13,9 +13,9 @@ Official Ansible modules can be found here: https://galaxy.ansible.com/influxdat
 
 ### Single Enterprise Cluster
 
-```
-module "influxdb" {
-    source             = "github.com/influxdata/terraform-influxdb"
+odule "influxdb" {
+    source  = "influxdata/influxdb/aws"
+    version = "1.0.0"
 
     data_instances    = 4
     # Set meta-instances to zero for OSS usage :)
@@ -37,7 +37,8 @@ A "name" variable can be specified when running multiple clusters in the same si
 
 ```
 module "influxdb" {
-    source             = "github.com/influxdata/terraform-influxdb"
+    source  = "influxdata/influxdb/aws"
+    version = "1.0.0"
 
     name              = "influx01"
     data_instances    = 4
@@ -53,7 +54,8 @@ module "influxdb" {
 }
 
 module "influxdb" {
-    source             = "github.com/influxdata/terraform-influxdb"
+    source  = "influxdata/influxdb/aws"
+    version = "1.0.0"
 
     name              = "influx02"
     data_instances    = 4
