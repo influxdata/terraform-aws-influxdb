@@ -1,12 +1,15 @@
 # Terraform InfluxDB Module
 
-Builds out all infrastructure for running InfluxDB OSS instances and InfluxDB Enterprise clusters on AWS. OSS support is particuarly useful for those want to start with OSS and scale out to enterprise installations.
+Builds out all infrastructure for running InfluxDB community and enterprise on AWS.
 
-Currently only the AWS provider is supported; However all enhancements are welcome!
+This module allows for easily starting with OSS and scaling out to enterprise as you scale your monitoring and analytics platform.
 
 ## Usage
 
-This module intentionally leaves operating system level provisioning and configuration management up to the user.
+This module intentionally leaves host level provisioning and configuration management tasks up to the consumer.
+
+Official Ansible modules can be found here: https://galaxy.ansible.com/influxdata/influxdb-enterprise/
+
 
 ### Single Enterprise Cluster
 
