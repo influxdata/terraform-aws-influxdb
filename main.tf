@@ -44,6 +44,24 @@ resource "aws_instance" "meta_node" {
     count                       = "${var.meta_instances}"
 }
 
+resource "aws_ebs_volume" "meta" {
+    size              = "100"
+    encrypted         = true
+    type              = "io1"
+    iops              = "4000"
+    availability_zone = "${data.aws_subnet.selected.0.availability_zone}"
+    tags              = "${var.tags}"
+    count             = "${var.meta_instances}"
+}
+
+resource "aws_volume_attachment" "meta" {
+    device_name = "${var.meta_disk_device_name}"
+    volume_id   = "${aws_ebs_volume.meta.*.id[count.index]}"
+    instance_id = "${aws_instance.meta_node.*.id[count.index]}"
+    count       = "${var.meta_instances}"
+    force_detach = true
+}
+
 resource "aws_route53_record" "meta_node" {
     zone_id = "${var.zone_id}"
     name    = "${var.name}-meta${format("%02d", count.index + 1)}"
