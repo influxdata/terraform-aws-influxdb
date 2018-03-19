@@ -3,7 +3,7 @@ variable "name" {
     default     = "influx"
 }
 variable "ami" {
-    description = "The AMI ID to use"
+    description = "The AMI ID to deploy"
 }
 
 variable "data_instances" {
