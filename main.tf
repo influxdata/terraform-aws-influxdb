@@ -40,7 +40,7 @@ resource "aws_volume_attachment" "data_attachment" {
 # Data nodes function fine without access to meta-nodes between shard creation.
 resource "aws_instance" "meta_node" {
     ami                         = "${var.ami}"
-    instance_type               = "t2.medium"
+    instance_type               = "t3.medium"
     tags                        = "${merge(var.tags, map("Name", "${var.name}-meta${format("%02d", count.index + 1)}"), map("Role", "${replace(var.name, "-", "_")}_meta"), map("Type", "data"))}"
     subnet_id                   = "${element(var.subnet_ids,0)}"
     key_name                    = "${var.key_name}"
