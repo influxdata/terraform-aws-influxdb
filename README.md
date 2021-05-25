@@ -20,21 +20,25 @@ The following example demonstrates deploying a single Influx Enterprise cluster 
 See the inputs doc or variable definitions file for more configuration options.
 
 ```
+provider "aws" {
+  region     = "us-east-2"
+  access_key = "your-access-key"
+  secret_key = "your-secret-key"
+
 module "influxdb" {
     source  = "influxdata/influxdb/aws"
-    version = "1.0.0"
+    version = "1.0.6"
 
-    data_instances    = 4
+    data_instances    = 2
     data_disk_size    = 500
-    data_disk_iops    = 6000
+    data_disk_iops    = 1000
     meta_instances    = 3
-    ami               = "ami-6d48500b"
-    tags              = "${map("Environment", "production")}"
-    subnet_ids        = "${list("subnet-9d4a7b6c", "subnet-7d4a9b6c")}"
-    vpc_id            = "vpc-6589ba03"
+    ami               = "ami-0f42acddbf04bd1b6"
+    subnet_id         = "subnet-8d5c5643"
+    vpc_id            = "vpc-b535e44g"
     instance_type     = "m4.large"
-    key_name          = "deployer"
-    zone_id           = "Z4RIKDGDIXUWGT"
-    security_groups   = "${list("sg-fffa2187")}"
-}
+    key_name          = "ignacio"
+    zone_id           = "Z044144236NI0U6A5435435"
+    security_group    = ["sg-0c8dc3456"]
+}    
 ```
